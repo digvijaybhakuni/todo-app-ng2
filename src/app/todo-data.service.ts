@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { Todo } from './todo';
 
 @Injectable()
-export class TodoDataService {
+export class TodoDataService{
 
   lastId: number = 0;
 
@@ -15,13 +15,22 @@ export class TodoDataService {
 
   addTodo(todo: Todo): TodoDataService{
     if(!todo.id){
-      todo.id = ++this.lastId + "_tempID";
+      let tempID = ++this.lastId + "_tempID"
+      todo.owner = { id: "58d805a86e5bd0a630585349", name: "digvijay", time: new Date};
+      this.http.post('/api/tasks', todo)
+        .map(res => res.json())
+        .subscribe(task => this.updateTodoById(tempID, task));
+      todo.id = tempID;
     }
     this.todos.push(todo);
+
+    console.log("todos : ", this.todos);
+
     return this;
   }
 
   deleteTodoById(id: String): TodoDataService{
+    console.log("todos : ", this.todos);
     this.todos = this.todos.filter(todo => todo.id !== id );
     return this;
   }
@@ -32,25 +41,32 @@ export class TodoDataService {
       return null;
     }
     Object.assign(todo, values);
+    console.log("todos : ", this.todos);
     return todo;
   }
 
-  getAllTodos(): Observable<Todo[]> {
-    return this.loadTask();
+  getAllTodos():Todo[] {
+    return this.todos;
+  }
+
+  init() {
+    this.loadTask().subscribe(todos => { this.todos = []; for(let t of todos){ this.todos.push(new Todo(t)); } });
+  } 
+
+  getTodoById(id: String): Todo{
+    console.log("todos : ", this.todos);
+    return this.todos.filter(todo => todo.id === id).pop();
+  }
+
+  toggleTodoComplete(todo: Todo){
+    console.log("todos : ", this.todos);
+    let updateTodo = this.updateTodoById(todo.id, { complete: !todo.complete });
+    return updateTodo;
   }
 
   private loadTask(){
     return this.http.get('/api/tasks')
     .map(res => { return res.json().tasks; });
-  } 
-
-  getTodoById(id: String): Todo{
-    return this.todos.filter(todo => todo.id === id).pop();
-  }
-
-  toggleTodoComplete(todo: Todo){
-    let updateTodo = this.updateTodoById(todo.id, { complete: !todo.complete });
-    return updateTodo;
   }
 
 }

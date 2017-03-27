@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Todo } from '../todo'
 import { TodoDataService } from '../todo-data.service';
 @Component({
@@ -8,14 +8,15 @@ import { TodoDataService } from '../todo-data.service';
   providers: [TodoDataService]
 })
 @Injectable()
-export class TodosComponent implements OnInit {
+export class TodosComponent implements OnInit{
 
   title = 'app works!';
   newTodo: Todo = new Todo();
-  todos:Todo[] = [];
+  //todos:Todo[] = [];
   constructor(private todoDataService: TodoDataService){}
 
   addTodo(){
+    console.log("Test log", this.newTodo);
     this.todoDataService.addTodo(this.newTodo);
     this.newTodo = new Todo();
   }
@@ -28,8 +29,14 @@ export class TodosComponent implements OnInit {
     this.todoDataService.deleteTodoById(todo.id);
   }
 
-  ngOnInit() {
-    this.todoDataService.getAllTodos().subscribe(todos => this.todos = todos );
+  ngOnInit(){
+    console.log("init the service ");
+    this.todoDataService.init();
+  }
+
+
+  get todos(){
+    return this.todoDataService.getAllTodos();
   }
 
 }
