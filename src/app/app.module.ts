@@ -9,6 +9,11 @@ import { AppComponent } from './app.component';
 import { TodosComponent } from './todos/todos.component';
 import { UserComponent } from './user/user.component';
 
+let APP_ROUTES = [
+  { path: '', redirectTo: 'users', pathMatch: 'full' },
+  { path: 'users', component: UserComponent},
+  { path: 'todos', component: TodosComponent}
+];
 
 @NgModule({
   declarations: [
@@ -19,7 +24,8 @@ import { UserComponent } from './user/user.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(APP_ROUTES)
   ],
   providers: [TodoDataService],
   bootstrap: [AppComponent]

@@ -1,3 +1,10 @@
 <p>
   user works!
 </p>
+<section class="main" *ngIf="users.length > 0">
+  <ul>
+    <li *ngFor="let user of users">
+      {{user | json}}      
+    </li>
+  </ul>
+</section>
