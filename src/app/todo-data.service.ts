@@ -50,7 +50,9 @@ export class TodoDataService{
   }
 
   init() {
-    this.loadTask().subscribe(todos => { this.todos = []; for(let t of todos){ this.todos.push(new Todo(t)); } });
+    this.loadTask()
+    //.subscribe(todos => this.todos = todos as Todo[]);
+    .subscribe(todos => { this.todos = []; for(let t of todos){ this.todos.push(new Todo(t)); } });//Old and Not Kewl Way
   } 
 
   getTodoById(id: String): Todo{
@@ -66,7 +68,7 @@ export class TodoDataService{
 
   private loadTask(){
     return this.http.get('/api/tasks')
-    .map(res => { return res.json().tasks; });
+    .map(res => res.json().tasks);
   }
 
 }
