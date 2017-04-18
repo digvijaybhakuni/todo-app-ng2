@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-module.exports = new mongoose.Schema({
+
+let taskSchema = new mongoose.Schema({
     title: { 
         type: String,
         required: true
@@ -43,5 +44,12 @@ module.exports = new mongoose.Schema({
     }
 });
 
+taskSchema.methods.setOwner = function(name, ownerId){
+    this.owner.name = name;
+    this.owner.id = mongoose.Types.ObjectId(ownerId);
+    this.owner.time = new Date();
+}
+
+module.exports = taskSchema;
 module.exports.set('toObject', { virtuals: true });
 module.exports.set('toJSON', { virtuals: true });

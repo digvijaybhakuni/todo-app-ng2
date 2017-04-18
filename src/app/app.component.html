@@ -6,6 +6,12 @@
         <li>
             <a routerLink="todos">Todos</a>
         </li>
+        <li *ngIf="!isAuthenticated">
+            <a routerLink="signup">SignUp</a>
+        </li>
+        <li *ngIf="isAuthenticated">
+            <a href="javascript:void(0);" (click)="logout()">Logout</a>
+        </li>
     </ul>
 </nav>
 <div>

@@ -17,6 +17,7 @@ const APP_ROUTES = [
   { path: '', redirectTo: 'users', pathMatch: 'full' },
   { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'todos', component: TodosComponent, canActivate: [AuthGuard] },
+  { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent }
 ];
 

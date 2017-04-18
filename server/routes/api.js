@@ -27,6 +27,7 @@ function init(wagner) {
         return (req, res) => {
             console.log("req.payload._id", req.payload._id);
             var task = new Task(req.body);
+            task.setOwner(req.payload.username, req.payload._id);
             task.metadata.createBy = req.payload._id;
             task.metadata.modifiedBy = req.payload._id;
             task.metadata.createDate = new Date();

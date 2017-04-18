@@ -34,10 +34,20 @@ export class AuthService{
         });
     }
 
+    logout(){
+        this.resetToken();
+    }
+
     private setToken(e){
         this.userAuthenticted = true;
         this.token = e;
         AppData.token = e;
+    }
+
+    private resetToken(){
+        this.userAuthenticted = false;
+        this.token = "";
+        AppData.token = "";
     }
 
 
