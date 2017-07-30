@@ -12,4 +12,16 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  onSubmit(formData){
+
+    console.log(formData);
+
+    if(formData.valid){
+      console.log("Form is Valid");
+    }
+    
+  }
+
+
 }
