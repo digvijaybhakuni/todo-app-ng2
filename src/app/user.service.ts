@@ -20,7 +20,7 @@ export class UserService {
 
 
   private loadUser(): Observable<User[]>{
-    return this.http.get('/api/users').map(e => e.json().users);
+    return this.http.get('api/users').map(e => e.json().users);
   }
 
 

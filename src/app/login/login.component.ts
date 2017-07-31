@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
     if(formData.valid){
       this.auth.authenticate({username: formData.value.loginId, password: formData.value.password})
       .subscribe(e => {
+
+        console.log(e);
         if(e.status){
           this.router.navigate(['users']);
         }

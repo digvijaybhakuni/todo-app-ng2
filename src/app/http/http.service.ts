@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers} from "@angular/http";
 import { Observable } from "rxjs/Rx";
-import { environment } from "../app.env";
+//import { environment } from "../app.env";
+import { environment } from "../../environments/environment";
 import { AppData } from "../app.data";
 import { Router} from '@angular/router';
 
@@ -41,7 +42,9 @@ export class HttpService extends Http{
 
     private updateUrl(req: string) {
         console.log("Req Url " + req);
-        
+        //environment.origin = "http://localhost:3000/"
+        console.log("environment.origin", environment.origin);
+        environment.origin
         return  environment.origin + req;
     }
 

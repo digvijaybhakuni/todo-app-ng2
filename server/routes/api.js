@@ -96,7 +96,7 @@ function init(wagner) {
             User.find({ 'profile.username': username })
                 .then((users) => {
                     console.log("users ", users);
-                    if (users) {
+                    if (users && users.length > 0) {
                         let user = users.pop();
                         if (user.validPassword(rawPassword)) {
                             user.data.password = "";

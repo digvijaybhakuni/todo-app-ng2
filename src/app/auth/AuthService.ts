@@ -20,10 +20,11 @@ export class AuthService{
         return this.userAuthenticted;
     }
 
-    authenticate(data): Observable<any>{
+    authenticate(data): Observable<AuthResult>{
         console.log("data", data);
         return this.http.post("api/auth", data)
         .map(res => {
+            console.log("auth res", res);
             var err = res.json().error;
             var token = res.json().token;
             if(!err && token){
@@ -31,7 +32,11 @@ export class AuthService{
                 return new AuthResult({status: true, msg: "User is Authenticated"});
             }
             return new AuthResult({status: true, msg: err});
-        });
+        }).catch((error:any) => {
+            console.error("catch", error);
+            return Observable.throw(new AuthResult({status: false, msg: error.json().error}));
+            //return new AuthResult({status: false, msg: error.json().error});
+        })
     }
 
     logout(){

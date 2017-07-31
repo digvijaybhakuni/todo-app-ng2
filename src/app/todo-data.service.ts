@@ -17,7 +17,7 @@ export class TodoDataService{
     if(!todo.id){
       let tempID = ++this.lastId + "_tempID"
       todo.owner = { id: "58d805a86e5bd0a630585349", name: "digvijay", time: new Date};
-      this.http.post('/api/tasks', todo)
+      this.http.post('api/tasks', todo)
         .map(res => res.json())
         .subscribe(task => this.updateTodoById(tempID, task));
       todo.id = tempID;
@@ -67,7 +67,7 @@ export class TodoDataService{
   }
 
   private loadTask(){
-    return this.http.get('/api/tasks')
+    return this.http.get('api/tasks')
     .map(res => res.json().tasks);
   }
 
