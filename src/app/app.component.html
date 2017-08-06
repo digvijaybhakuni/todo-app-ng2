@@ -1,19 +1,37 @@
-<nav>
-    <ul class="nav navbar-nav">
-        <li>
-            <a routerLink="users">User</a>
-        </li>
-        <li>
-            <a routerLink="todos">Todos</a>
-        </li>
-        <li *ngIf="!isAuthenticated">
-            <a routerLink="signup">SignUp</a>
-        </li>
-        <li *ngIf="isAuthenticated">
-            <a href="javascript:void(0);" (click)="logout()">Logout</a>
-        </li>
-    </ul>
-</nav>
+<div class="nav-warpper">
+    <div class="container">
+        <nav class="navbar">
+
+            <div class="navbar-brand">
+                <a class="navbar-item" routerLink="todos">
+                    <img src="http://free-icon-rainbow.com/i/icon_01606/icon_016060_256.png" alt="The Todo App" >
+                    Todos App
+                </a>
+
+                <div class="navbar-burger burger" data-target="navMenuExample">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </div>
+
+            <div id="navMenuExample" class="navbar-menu">
+                <div class="navbar-end">
+                    <a class="navbar-item " routerLink="users"><span class="emoji">🎨</span>User</a>
+                    <a *ngIf="!isAuthenticated" class="navbar-item " routerLink="signup"><span class="emoji">❤️</span>Sign Up</a>
+                    <a *ngIf="isAuthenticated" class="navbar-item " href="javascript:void(0);" (click)="logout()"><span class="emoji">❤️</span>Logout</a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <div class="navbar-link">
+                            More
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
 <div>
     <router-outlet></router-outlet>
 </div>

@@ -1,4 +1,4 @@
-<section class="todoapp">
+<!-- <section class="todoapp">
   <header class="header">
     <h1>Todos</h1>
     <input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
@@ -17,4 +17,51 @@
   <footer class="footer" *ngIf="todos.length > 0">
     <span class="todo-count"><strong>{{todos.length}}</strong> {{todos.length == 1 ? 'item' : 'items'}} left</span>
   </footer>
+</section> -->
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Todos
+      </h1>
+    </div>
+  </div>
+</section>
+<section class="todos-wrapper">
+  <div class="form-container container">
+    <nav class="panel">
+      <!-- <p class="panel-heading">
+        repositories
+      </p> -->
+      <div class="panel-block">
+        <p class="control has-icons-left">
+          <input class="input is-small" type="text" placeholder="search">
+          <span class="icon is-small is-left">
+            <i class="fa fa-search"></i>
+          </span>
+        </p>
+      </div>
+      <p class="panel-tabs">
+        <a class="is-active">all</a>
+        <a>done</a>
+        <a>not done</a>
+      </p>
+      <a class="panel-block is-active">
+        <span class="panel-icon">
+          <i class="fa fa-book"></i>
+        </span>
+        bulma
+      </a>
+      <label *ngFor="let todo of todos" [class.completed]="todo.complete" class="panel-block">
+        <input type="checkbox" (click)="toggleTodoComplete(todo)" [checked]="todo.complete">
+        {{todo.title}}
+        <button class="destroy" (click)="removeTodo(todo)"></button>
+      </label>
+      <div class="panel-block">
+        <button class="button is-primary is-outlined is-fullwidth">
+          reset all filters
+        </button>
+      </div>
+    </nav>
+  </div>
 </section>

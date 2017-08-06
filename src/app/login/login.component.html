@@ -1,13 +1,39 @@
-<div class="form-container">
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Login
+      </h1>
+    </div>
+  </div>
+</section>
+<section class="login-form-wrapper">
+  <div class="form-container container">
+    <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+      <span class="error" *ngIf="error">{{ error }}</span>
+      <div class="field">
+        <label class="label">Username</label>
+        <div class="control has-icons-left has-icons-right">
+          <input type="text" placeholder="Login Id.." (ngModel)="loginId" name="loginId" class="input is-success"  required>
+          <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+        </div>
+      </div>
 
-  <h2>Login</h2>
-  <span class="error" *ngIf="error">{{ error }}</span>
-  <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control has-icons-left has-icons-right">
+          <input type="password" placeholder="Password" (ngModel)="password" name="password" class="input is-success" required>
+          <span class="icon is-small is-left"><i class="fa fa-key"></i></span>
+        </div>
+      </div>
+      
+      
 
-      <input type="text" placeholder="Login Id.." (ngModel)="loginId" name="loginId" class="txt" required>
-      <input type="password" placeholder="Password" (ngModel)="password" name="password" class="txt" required>
+      <div class="control">
+        <button type="submit" [disabled]="!formData.valid" class="button is-primary">Log in</button>
+      </div>
 
-      <button type="submit" [disabled]="!formData.valid" class="basic-btn">Log in</button>
       <a routerLink="/signup" class="alc">Don't have an account?</a>
-  </form>
-</div>
+    </form>
+  </div>
+</section>

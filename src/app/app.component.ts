@@ -20,6 +20,8 @@ export class AppComponent{
     this.router.navigate([""]);
   }
 
+  
+
   get isAuthenticated(){
     return this.auth.isAuthenticated();
   }
