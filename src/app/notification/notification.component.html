@@ -1,0 +1,16 @@
+<div class="modal" [class.is-active]="showNotification">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Alert</p>
+      <button class="delete" (click)="removeAlert()"></button>
+    </header>
+    <section class="modal-card-body">
+      {{ message }}
+    </section>
+    <footer class="modal-card-foot">
+      <a class="button is-success" (click)="removeAlert()" >Ok</a>
+    </footer>
+  </div>
+  <button class="modal-close is-large" (click)="removeAlert()" ></button>
+</div>

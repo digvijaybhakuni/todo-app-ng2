@@ -37,4 +37,5 @@ interface Profile {
 
 interface Data {
   oauth:String;
+  password:String;
 }

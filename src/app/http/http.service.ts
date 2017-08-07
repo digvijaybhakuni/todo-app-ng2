@@ -27,6 +27,7 @@ export class HttpService extends Http{
 
      post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
         url = this.updateUrl(url);
+        console.log("post");
         return super.post(url, body, this.getRequestOptionArgs(options));
     }
 

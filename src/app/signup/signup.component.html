@@ -14,7 +14,7 @@
       <div class="field">
         <label class="label">Username</label>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-success" type="text" placeholder="Username" name="username" required>
+          <input class="input is-success" type="text" placeholder="Username" (ngModel)="username" name="username" required>
           <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
           <span class="icon is-small is-right"><i class="fa fa-check"></i></span>
         </div>
@@ -24,7 +24,7 @@
       <div class="field">
         <label class="label">Password</label>
         <div class="control has-icons-left">
-          <input class="input is-success" type="password" placeholder="Password" name="psw" required>
+          <input class="input is-success" type="password" placeholder="Password" (ngModel)="psw" name="psw" required>
           <span class="icon is-small is-left"><i class="fa fa-key"></i></span>
         </div>
       </div>
@@ -32,7 +32,7 @@
       <div class="field">
         <label class="label">Repeat Password</label>
         <div class="control has-icons-left">
-          <input class="input is-success" type="password" placeholder="Repeat Password" name="psw-repeat" required>
+          <input class="input is-success" type="password" placeholder="Repeat Password" (ngModel)="pswrepeat" name="pswrepeat" required>
           <span class="icon is-small is-left"><i class="fa fa-key"></i></span>
         </div>
       </div>
