@@ -10,7 +10,11 @@
 <section class="login-form-wrapper">
   <div class="form-container container">
     <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
-      <span class="error" *ngIf="error">{{ error }}</span>
+
+      <p class="has-text-danger">
+          <span class="error is-danger" *ngIf="error">{{ error }}</span>
+      </p>
+
       <div class="field">
         <label class="label">Username</label>
         <div class="control has-icons-left has-icons-right">
@@ -27,8 +31,6 @@
         </div>
       </div>
       
-      
-
       <div class="control">
         <button type="submit" [disabled]="!formData.valid" class="button is-primary">Log in</button>
       </div>
@@ -37,3 +39,20 @@
     </form>
   </div>
 </section>
+
+<div class="modal" [class.is-active]="isErrorDailog">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Alert</p>
+      <button class="delete" (click)="isErrorDailog = false"></button>
+    </header>
+    <section class="modal-card-body">
+      {{ error }}
+    </section>
+    <footer class="modal-card-foot">
+      <a class="button is-success" (click)="isErrorDailog = false" >Ok</a>
+    </footer>
+  </div>
+  <button class="modal-close is-large" (click)="isErrorDailog = false" ></button>
+</div>
