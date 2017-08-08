@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+
 import { User } from '../user/user.component';
 import { AuthService } from '../auth/AuthService';
 import { NotificationService } from '../notification/notification.service';
@@ -11,7 +13,10 @@ import { NotificationService } from '../notification/notification.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private _location: Location, private _auth: AuthService, private notificationService: NotificationService) { }
+  constructor(private _location: Location,
+    private _auth: AuthService,
+    private notificationService: NotificationService,
+    private _router: Router) { }
 
   ngOnInit() {
   }
@@ -22,13 +27,16 @@ export class SignupComponent implements OnInit {
     console.log(formData);
 
     if (formData.valid) {
-      console.log("Form is Valid");
+      console.log('Form is Valid');
 
-      let newUser = new User({ profile: { username: formData.value.username, picture: "http://randomuser.me/api/portraits/med/men/83.jpg" }, data: { password: formData.value.psw, oauth: "qwerty" } });
-      console.log("newUser", newUser);
+      const newUser = new User({
+        profile: { username: formData.value.username, picture: 'http://randomuser.me/api/portraits/med/men/83.jpg' },
+        data: { password: formData.value.psw, oauth: 'qwerty' }
+      });
+      console.log('newUser', newUser);
       this._auth.createUser(newUser).subscribe(
-        res => { this.notificationService.success("User Created"); console.log(res); },
-        err => { this.notificationService.error("User Faild"); console.log(err); }
+        res => { this.notificationService.success('User Created', () => this._router.navigate(['login'])); },
+        err => { this.notificationService.error('User Faild'); }
       );
     }
 
@@ -37,6 +45,5 @@ export class SignupComponent implements OnInit {
   onCancel() {
     this._location.back();
   }
-
 
 }

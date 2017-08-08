@@ -11,8 +11,9 @@ import { Alert, AlertType } from './notification.type';
 
 export class NotificationComponent implements OnInit {
 
-  message: string = "";
+  message = '';
   showNotification: Boolean = false;
+  currAlert: Alert = null;
   constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
@@ -21,15 +22,19 @@ export class NotificationComponent implements OnInit {
         if (alert) {
           this.showNotification = true;
           this.message = alert.message;
+          this.currAlert = alert;
         }
-        console.log("alert", alert);
+        console.log('alert', alert);
       }
     );
   }
 
   removeAlert() {
     this.showNotification = false;
-    this.message = "";
+    this.message = '';
+    if (this.currAlert) {
+      this.notificationService.onComplete(this.currAlert);
+    }
     this.notificationService.clear();
   }
 

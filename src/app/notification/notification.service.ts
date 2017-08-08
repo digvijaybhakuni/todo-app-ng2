@@ -31,8 +31,8 @@ export class NotificationService {
     return this.subject.asObservable();
   }
 
-  success(message: string, keepAfterRouteChange = false) {
-    this.alert(AlertType.Success, message, keepAfterRouteChange);
+  success(message: string, cb: () => void, keepAfterRouteChange = false) {
+    this.alert(AlertType.Success, message, keepAfterRouteChange, cb);
   }
 
   error(message: string, keepAfterRouteChange = false) {
@@ -47,9 +47,13 @@ export class NotificationService {
     this.alert(AlertType.Warning, message, keepAfterRouteChange);
   }
 
-  alert(type: AlertType, message: string, keepAfterRouteChange = false) {
+  alert(type: AlertType, message: string, keepAfterRouteChange = false, cb: Function = () => {}) {
     this.keepAfterRouteChange = keepAfterRouteChange;
-    this.subject.next(<Alert>{ type: type, message: message });
+    this.subject.next(<Alert>{ type: type, message: message, cb: cb });
+  }
+
+  onComplete(alert: Alert) {
+    alert.cb();
   }
 
   clear() {
