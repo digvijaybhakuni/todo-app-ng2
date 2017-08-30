@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('express-jwt');
+const mongoose = require('mongoose');
 const auth = jwt({
     secret: 'SECRET_X',
     userProperty: 'payload'
@@ -52,10 +53,46 @@ function init(wagner) {
         }
     }));
 
+    router.get("/users/:id", auth, wagner.invoke(function (User) {
+        return (req, res) => {
+            //console.log("req.payload._id", req.payload._id);
+            //console.log("req.payload.username", req.payload.username);
+            
+            userId = mongoose.Types.ObjectId(req.params.id);
+            User.find({_id:userId})
+                .then((users) => {
+                    if (!users) {
+                        return res.status(404).json({ error: 'Not found' });
+                    }
+                    res.json({ users: users });
+                }).catch((err) => {
+                    return res.status(500).json({ error: err.toString() });
+                });
+        };
+    })
+    );
+
+    router.post("/users/:id", auth, wagner.invoke(function (User) {
+        return (req, res) => {
+            var user = new User(req.body);
+            userId = mongoose.Types.ObjectId(req.params.id);
+            Console.log("TESST");
+            User.findOne({_id:userId})
+                .then((user) => {
+                    if (!user) {
+                        return res.status(404).json({ error: 'Not found' });
+                    }
+                    console.log(user.data.password);
+                    res.json(user);
+                }).catch((err) => {
+                    return res.status(500).json({ error: err.toString() });
+                });
+        };
+    })
+    );
+
     router.get("/users", auth, wagner.invoke(function (User) {
         return (req, res) => {
-            console.log("req.payload._id", req.payload._id);
-            console.log("req.payload.username", req.payload.username);
             User.find({})
                 .then((users) => {
                     if (!users) {

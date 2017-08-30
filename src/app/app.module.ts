@@ -14,10 +14,12 @@ import { SignupComponent } from './signup/signup.component';
 import { httpFactory } from "./http/http.factory";
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationService } from './notification/notification.service';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const APP_ROUTES = [
   { path: '', redirectTo: 'users', pathMatch: 'full' },
   { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path: 'todos', component: TodosComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent }
@@ -36,7 +38,8 @@ const HTTP_PROVIDER = {
     UserComponent,
     LoginComponent,
     SignupComponent,
-    NotificationComponent
+    NotificationComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

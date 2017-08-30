@@ -61,6 +61,10 @@ userSchema.methods.generateJwt = function () {
   }, "SECRET_X");
 }
 
+userSchema.methods.toObjectId = function (strId) {
+  return mongoose.Types.ObjectId(strId);
+}
+
 module.exports = userSchema;
 module.exports.set('toObject', { virtuals: true });
 module.exports.set('toJSON', { virtuals: true });

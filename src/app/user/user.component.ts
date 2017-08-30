@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -9,7 +10,7 @@ import { UserService } from '../user.service'
 })
 export class UserComponent implements OnInit {
 
-  constructor(private userService:UserService) { }
+  constructor(private userService:UserService, private _router:Router) { }
 
   ngOnInit() {
     this.userService.init();
@@ -19,12 +20,17 @@ export class UserComponent implements OnInit {
     return this.userService.getUserList();
   }
 
+  openUserProfile(id:string){
+    console.log("userid",id);
+    this._router.navigate(['user-profile']);
+  }
+
 }
 
 export class User {
   profile:Profile;
   data: Data;
-
+  _id:String
   constructor(values: Object = {}) {
         Object.assign(this, values);
   }
