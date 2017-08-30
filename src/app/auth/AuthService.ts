@@ -10,52 +10,50 @@ import 'rxjs/add/operator/take';
 @Injectable()
 export class AuthService{
 
-    private userAuthenticted:boolean = false; 
-    private token:String = null;
+    private userAuthenticted = false;
+    private token: String;
 
-    
+
     constructor(private http: Http){}
 
-    isAuthenticated():boolean{
+    isAuthenticated(): boolean {
         return this.userAuthenticted;
     }
 
     authenticate(data): Observable<AuthResult>{
-        console.log("data", data);
-        return this.http.post("api/auth", data)
+        console.log('data', data);
+        return this.http.post('api/auth', data)
         .map(res => {
-            console.log("auth res", res);
-            var err = res.json().error;
-            var token = res.json().token;
+            console.log('auth res', res);
+            const err = res.json().error;
+            const token = res.json().token;
             if(!err && token){
                 this.setToken(token);
-                return new AuthResult({status: true, msg: "User is Authenticated"});
+                return new AuthResult({status: true, msg: 'User is Authenticated'});
             }
             return new AuthResult({status: true, msg: err});
-        }).catch((error:any) => {
-            console.error("catch", error);
+        }).catch((error: any) => {
+            console.error('catch', error);
             return Observable.throw(new AuthResult({status: false, msg: error.json().error}));
-            //return new AuthResult({status: false, msg: error.json().error});
-        })
+        });
     }
 
     createUser(data): Observable<AuthResult>{
-        console.log("data", data);
-        return this.http.post("api/users", data)
+        console.log('', data);
+        return this.http.post('api/users', data)
         .map(res => {
-            console.log("auth res", res);
-            var err = res.json().error;
-            var token = res.json().token;
+            console.log('auth res', res);
+            const err = res.json().error;
+            const token = res.json().token;
             if(!err && token){
                 this.setToken(token);
-                return new AuthResult({status: true, msg: "User is Authenticated"});
+                return new AuthResult({status: true, msg: 'User is Authenticated'});
             }
             return new AuthResult({status: true, msg: err});
-        }).catch((error:any) => {
-            console.error("catch", error);
+        }).catch((error: any) => {
+            console.error('catch', error);
             return Observable.throw(new AuthResult({status: false, msg: error.json().error}));
-            //return new AuthResult({status: false, msg: error.json().error});
-        })
+        });
     }
 
 
@@ -71,8 +69,8 @@ export class AuthService{
 
     private resetToken(){
         this.userAuthenticted = false;
-        this.token = "";
-        AppData.token = "";
+        this.token = '';
+        AppData.token = '';
     }
 
 
@@ -82,18 +80,16 @@ export class AuthService{
 
 @Injectable()
 export class AuthGuard implements CanActivate{
-  
-  constructor(private auth:AuthService, private router: Router){}
+  constructor(private auth: AuthService, private router: Router){}
 
   canActivate(): Observable<boolean> | boolean{
-     if(!this.auth.isAuthenticated()){
+     if(!this.auth.isAuthenticated()) {
         this.router.navigate([ '/login' ]);
         return false;
      } else {
        return true;
      }
   }
-  
 }
 
 export class AuthResult {

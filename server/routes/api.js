@@ -83,6 +83,7 @@ function init(wagner) {
                         return res.status(404).json({ error: 'Not found' });
                     }
                     console.log(user.data.password);
+                    delete user.data.password
                     res.json(user);
                 }).catch((err) => {
                     return res.status(500).json({ error: err.toString() });
