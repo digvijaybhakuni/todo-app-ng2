@@ -53,7 +53,7 @@ function init(wagner) {
         }
     }));
 
-    router.get("/users/:id", auth, wagner.invoke(function (User) {
+    router.get("/users/:id", wagner.invoke(function (User) {
         return (req, res) => {
             //console.log("req.payload._id", req.payload._id);
             //console.log("req.payload.username", req.payload.username);
@@ -73,7 +73,7 @@ function init(wagner) {
     })
     );
 
-    router.post("/users/:id", auth, wagner.invoke(function (User) {
+    router.post("/users/:id", wagner.invoke(function (User) {
         return (req, res) => {
             var user = new User(req.body);
             userId = mongoose.Types.ObjectId(req.params.id);
@@ -91,7 +91,7 @@ function init(wagner) {
     })
     );
 
-    router.get("/users", auth, wagner.invoke(function (User) {
+    router.get("/users", wagner.invoke(function (User) {
         return (req, res) => {
             User.find({})
                 .then((users) => {
@@ -127,6 +127,9 @@ function init(wagner) {
     }));
 
     router.post("/auth", wagner.invoke(function (User) {
+
+        console.log("TEST auth");
+
         return (req, res) => {
             let username = req.body.username;
             let rawPassword = req.body.password;

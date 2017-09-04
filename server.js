@@ -13,26 +13,28 @@ const api = require('./server/routes/api');
 const app = express();
 
 
-const originsWhitelist = [
-  'http://localhost:4200',      //this is my front-end url for development
-   'http://www.myproductionurl.com'
-];
-const corsOptions = {
-  origin: function(origin, callback){
-        var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
-        callback(null, isWhitelisted);
-  },
-  credentials:true
-}
-//here is the magic
-app.use(cors(corsOptions));
+// const originsWhitelist = [
+//   'http://localhost:4200',      //this is my front-end url for development
+//    'http://www.myproductionurl.com'
+// ];
+// const corsOptions = {
+//   origin: function(origin, callback){
+//         var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
+//         callback(null, isWhitelisted);
+//   },
+//   credentials:true
+// }
+// //here is the magic
+// app.use(cors(corsOptions));
 
 // app.use(cors());
 
 // app.options('*', cors());
 
 // Parsers for POST data
+console.log("json test");
 app.use(bodyParser.json());
+console.log("encoding test");
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Point static path to dist
