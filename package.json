@@ -4,13 +4,13 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config=proxy-conf.js",
     "build": "ng build --prod --env=prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "app": "ng build --env=prod && node server.js",
-    "backend": "nodemon server.js" ,
+    "backend": "nodemon server.js",
     "devmode": "ng serve && nodemon server.js"
   },
   "private": true,

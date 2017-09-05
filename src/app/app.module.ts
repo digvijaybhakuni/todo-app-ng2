@@ -22,7 +22,8 @@ const APP_ROUTES = [
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path: 'todos', component: TodosComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent},
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: 'todos', pathMatch: 'full' }
 ];
 
 const HTTP_PROVIDER = {
