@@ -30,9 +30,9 @@
 <section class="todos-wrapper">
   <div class="form-container container">
     <nav class="panel">
-      <!-- <p class="panel-heading">
-        repositories
-      </p> -->
+      <p class="panel-heading">
+        <input class="new-todo input" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
+      </p>
       <div class="panel-block">
         <p class="control has-icons-left">
           <input class="input is-small" type="text" placeholder="search">
@@ -53,8 +53,7 @@
         bulma
       </a>
       <label *ngFor="let todo of todos" [class.completed]="todo.complete" class="panel-block">
-        <input type="checkbox" (click)="toggleTodoComplete(todo)" [checked]="todo.complete">
-        {{todo.title}}
+        <input type="checkbox" (click)="toggleTodoComplete(todo)" [checked]="todo.complete"> {{todo.title}}
         <button class="destroy" (click)="removeTodo(todo)"></button>
       </label>
       <div class="panel-block">
