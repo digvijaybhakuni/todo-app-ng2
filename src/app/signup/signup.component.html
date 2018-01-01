@@ -9,22 +9,23 @@
 </section>
 <section class="login-form-wrapper">
   <div class="form-container container">
-    <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+    <form #formData='ngForm' (ngSubmit)="onSubmit(formData)" novalidate>
 
       <div class="field">
         <label class="label">Username</label>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-success" type="text" placeholder="Username" (ngModel)="username" name="username" required>
+          <input class="input is-success" type="text" placeholder="Username" [(ngModel)]="username" name="username" unvalidation required>
           <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
           <span class="icon is-small is-right"><i class="fa fa-check"></i></span>
         </div>
-        <p class="help is-success">This username is available</p>
+        <p class="help is-success">This username is available </p>
+        <p class="help is-error" *ngIf="formData.controls['username']?.errors?.unmsg">{{formData.controls['username']?.errors?.unmsg}}</p>
       </div>
-
+      <!-- <span> {{formData.controls['username']?.errors}} </span> -->
       <div class="field">
         <label class="label">Password</label>
         <div class="control has-icons-left">
-          <input class="input is-success" type="password" placeholder="Password" (ngModel)="psw" name="psw" required>
+          <input class="input is-success" type="password" placeholder="Password" [(ngModel)]="psw" name="psw" required>
           <span class="icon is-small is-left"><i class="fa fa-key"></i></span>
         </div>
       </div>
@@ -32,9 +33,10 @@
       <div class="field">
         <label class="label">Repeat Password</label>
         <div class="control has-icons-left">
-          <input class="input is-success" type="password" placeholder="Repeat Password" (ngModel)="pswrepeat" name="pswrepeat" required>
+          <input class="input is-success" type="password" placeholder="Repeat Password" [(ngModel)]="pswrepeat" name="pswrepeat" equalTo [attr.data-refval]="formData.controls['psw']?.value" required>
           <span class="icon is-small is-left"><i class="fa fa-key"></i></span>
         </div>
+        <p class="help is-success" *ngIf="formData.controls['pswrepeat']?.errors?.notequal">Not Equal Password</p>
       </div>
 
       <div class="field">

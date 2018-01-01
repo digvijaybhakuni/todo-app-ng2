@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config=proxy-conf.js",
+    "start": "ng serve --proxy-config proxy-conf.js",
     "build": "ng build --prod --env=prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,6 +23,9 @@
     "@angular/platform-browser": "^2.4.0",
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@angular/router": "^3.4.0",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/effects": "^4.1.1",
+    "@ngrx/store": "2.2.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.1",
     "bulma": "^0.5.0",

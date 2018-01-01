@@ -6,7 +6,6 @@ const PROXY_CONFIG = [
             "/endpoints",
             "/i",
             "/need",
-            "/to",
             "/proxy"
         ],
         target: "http://localhost:3000",

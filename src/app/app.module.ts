@@ -15,6 +15,8 @@ import { httpFactory } from "./http/http.factory";
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationService } from './notification/notification.service';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UsernameValidation } from './directive/username-validation';
+import { EqualValueValidation } from './directive/equal-validation';
 
 const APP_ROUTES = [
   { path: '', redirectTo: 'users', pathMatch: 'full' },
@@ -40,7 +42,9 @@ const HTTP_PROVIDER = {
     LoginComponent,
     SignupComponent,
     NotificationComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UsernameValidation,
+    EqualValueValidation,
   ],
   imports: [
     BrowserModule,
