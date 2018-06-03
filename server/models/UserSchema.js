@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const USER_SALT = "USER_HEX_!2#4%";
 
-let userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   profile: {
     username: {
       type: String,
@@ -20,7 +20,7 @@ let userSchema = new mongoose.Schema({
   data: {
     oauth: { type: String, required: true },
     password: {
-      type: String, 
+      type: String,
       required: true
     }
   }
@@ -33,16 +33,16 @@ userSchema.methods.setPassword = function(password){
     console.error("error", err);
     throw new Error("Error Encrypting password and setting it ");
   }
-  
+
 
   /*let currentUser = this;
   console.log("this >> ", this);
   return bcrypt.hash(password, null, null, (err, res) => {
-    console.log("res", res); 
+    console.log("res", res);
     console.log("err", err);
     console.log("this", currentUser);
-    if(!err){ currentUser.data.password = res; } 
-    else { throw new Error("Error Encrypting password and setting it "); } 
+    if(!err){ currentUser.data.password = res; }
+    else { throw new Error("Error Encrypting password and setting it "); }
     console.log("Set password done");
   });*/
 }

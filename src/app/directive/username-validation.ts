@@ -1,34 +1,35 @@
 import {Directive, forwardRef} from '@angular/core';
-import {Validator, AbstractControl, NG_ASYNC_VALIDATORS} from '@angular/forms'
+import {Validator, AbstractControl, NG_ASYNC_VALIDATORS} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import {Subject} from 'rxjs/Subject';
+import {UserService} from "../user.service";
 
 @Directive({
-    selector: "[unvalidation][formControlName], [unvalidation][ngModel]",
-    providers: [
-      {
-        provide: NG_ASYNC_VALIDATORS,
-        useExisting: forwardRef(() => UsernameValidation), multi: true
-      }
-    ]
-  })
+  selector: "[unvalidation][formControlName], [unvalidation][ngModel]",
+  providers: [
+    {
+      provide: NG_ASYNC_VALIDATORS,
+      useExisting: forwardRef(() => UsernameValidation), multi: true
+    }, UserService
+  ]
+})
 export class UsernameValidation implements Validator {
 
-    private vaildation: Subject<{[key : string]: any}>;
+  constructor(private userSrv: UserService) {
+  }
 
-    validate(ac : AbstractControl) : Promise<{[key: string]: any}>|Observable<{[key :string]: any}> {
-        return ac.valueChanges.debounceTime(1000).switchMap(val =>{
-            console.log('val', val);
-            if(val){
-                return Observable.of<{[key : string]: any}>({unmsg: 'Not Avaiable'})
-                    .delay(1000)
-                    .do(e => {
-                        ac.setErrors(e);
-                    });
-            }
-            return Observable.of(null);
-        });
-        // Observable.of('string').
-        // return Observable.of({unmsg: 'Not Avaiable'}).delay(500);
+
+  validate(ac: AbstractControl): Promise<{ [key: string]: any }> | Observable<{ [key: string]: any }> {
+      const val = ac.value;
+      if (val) {
+        return this.userSrv.checkUsername(val).map(res => {
+          console.log('exists[res]', res);
+          if (res['exists']) {
+            return {unmsg: 'Username is not available'};
+          }
+          return null;
+        }).do(r => ac.setErrors(r));
+      }
+      return Observable.of(null);
     }
 }

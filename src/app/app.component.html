@@ -8,7 +8,7 @@
                     Todos App
                 </a>
 
-                <div class="navbar-burger burger" data-target="navMenuExample">
+                <div class="navbar-burger burger" [class.is-active]="showMenu" data-target="navMenuExample" (click)="toggleMenu($event)">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -16,7 +16,7 @@
 
             </div>
 
-            <div id="navMenuExample" class="navbar-menu">
+            <div id="navMenuExample" class="navbar-menu" [class.is-active]="showMenu">
                 <div class="navbar-end">
                     <a class="navbar-item " routerLink="users"><span class="emoji">🎨</span>User</a>
                     <a *ngIf="!isAuthenticated" class="navbar-item " routerLink="signup"><span class="emoji">❤️</span>Sign Up</a>

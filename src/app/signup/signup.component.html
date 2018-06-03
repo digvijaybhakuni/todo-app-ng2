@@ -18,8 +18,8 @@
           <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
           <span class="icon is-small is-right"><i class="fa fa-check"></i></span>
         </div>
-        <p class="help is-success">This username is available </p>
-        <p class="help is-error" *ngIf="formData.controls['username']?.errors?.unmsg">{{formData.controls['username']?.errors?.unmsg}}</p>
+        <!--<p class="help is-success">This username is available </p>-->
+        <p class="help is-danger" *ngIf="formData.controls['username']?.errors?.unmsg">{{formData.controls['username']?.errors?.unmsg}}</p>
       </div>
       <!-- <span> {{formData.controls['username']?.errors}} </span> -->
       <div class="field">
@@ -33,7 +33,7 @@
       <div class="field">
         <label class="label">Repeat Password</label>
         <div class="control has-icons-left">
-          <input class="input is-success" type="password" placeholder="Repeat Password" [(ngModel)]="pswrepeat" name="pswrepeat" equalTo [attr.data-refval]="formData.controls['psw']?.value" required>
+          <input class="input is-success" type="password" placeholder="Repeat Password" [(ngModel)]="pswrepeat" name="pswrepeat" [equalTo]="formData.controls['psw']" [attr.data-refval]="formData.controls['psw']?.value" required>
           <span class="icon is-small is-left"><i class="fa fa-key"></i></span>
         </div>
         <p class="help is-success" *ngIf="formData.controls['pswrepeat']?.errors?.notequal">Not Equal Password</p>

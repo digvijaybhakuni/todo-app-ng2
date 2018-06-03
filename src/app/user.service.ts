@@ -19,9 +19,13 @@ export class UserService {
   }
 
 
-  private loadUser(): Observable<User[]>{
+  private loadUser(): Observable<User[]> {
     return this.http.get('api/users').map(e => e.json().users);
   }
 
+
+  public checkUsername(username: string) {
+    return this.http.post('api/users/check/username', {username}).map(e => e.json());
+  }
 
 }

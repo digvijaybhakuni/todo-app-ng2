@@ -13,7 +13,7 @@ function init(wagner) {
         return (req, res) => {
             console.log("req.payload._id", req.payload._id);
             Task.find({ $or: [{ "metadata.createBy": req.payload._id }, { "metadata.modifiedBy": req.payload._id }] }).exec((err, tasks) => {
-                if (err) {
+                if(err){
                     return res.status(500).json({ error: err.toString() });
                 } else if (!tasks) {
                     return res.status(404).json({ error: 'Not found' });
@@ -57,7 +57,7 @@ function init(wagner) {
         return (req, res) => {
             //console.log("req.payload._id", req.payload._id);
             //console.log("req.payload.username", req.payload.username);
-            
+
             userId = mongoose.Types.ObjectId(req.params.id);
             User.findOne({_id:userId})
                 .then((user) => {
@@ -131,13 +131,13 @@ function init(wagner) {
         console.log("TEST auth");
 
         return (req, res) => {
-            let username = req.body.username;
-            let rawPassword = req.body.password;
+            const username = req.body.username;
+            const rawPassword = req.body.password;
             User.find({ 'profile.username': username })
                 .then((users) => {
                     console.log("users ", users);
                     if (users && users.length > 0) {
-                        let user = users.pop();
+                        const user = users.pop();
                         if (user.validPassword(rawPassword)) {
                             user.data.password = "";
                             return res.json({ token: user.generateJwt() });
@@ -150,6 +150,20 @@ function init(wagner) {
                 });
         }
     }));
+
+
+  router.post("/users/check/username", wagner.invoke(function (User) {
+    return (req, res) => {
+      const username = req.body.username;
+      User.find({ 'profile.username': username }).then(users => {
+        if(users && users.length){
+          res.json({exists: true})
+        }else {
+          res.json({exists: false})
+        }
+      }).catch(err => res.status(500).json({err : err}));
+    };
+  }));
 }
 
 
